@@ -1,17 +1,14 @@
 package com.andersen.javatrainee.repository;
 
 import com.andersen.javatrainee.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+@org.springframework.stereotype.Repository
 
-public interface UserRepository {
+public class UserRepository extends AbstractRepository<User> {
 
-    User save(User user);
-
-    User get(int id);
-
-    void delete(int id);
-
-    List<User> getAll();
-
+    @Autowired
+    public UserRepository(DataJpaUserRepository dataJpaUserRepository) {
+        this.jpaRepository = dataJpaUserRepository;
+    }
 }

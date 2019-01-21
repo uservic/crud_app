@@ -3,12 +3,12 @@ delete from user;
 ALTER TABLE dictionary AUTO_INCREMENT = 1;
 ALTER TABLE user AUTO_INCREMENT = 1;
 
-insert into user (role) values
-('ROLE_ADMIN'),
-('USER_ROLE'),
-('USER_ROLE'),
-('USER_ROLE');
+insert into dictionary (discriminator, name, ext_id) values
+('Role', 'USER', 1),
+('Role', 'ADMIN', 2);
 
-# insert into dictionary (discriminator, name, ext_id) values
-# ('ROLE_ADMIN', 'admin name', 1),
-# ('ROLE_USER', 'user name', 2);
+insert into user (login, password, role) values
+('Joe', '11111', 2),
+('Bob', '22222', 1),
+('Ann', '33333', 1),
+('Zoe', '44444', 1);

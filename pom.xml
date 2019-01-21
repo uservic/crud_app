@@ -31,9 +31,25 @@
         <hibernate.version>5.3.7.Final</hibernate.version>
         <spring-data-jpa.version>2.1.2.RELEASE</spring-data-jpa.version>
         <jackson-json.version>2.9.7</jackson-json.version>
+        <junit.jupiter.version>5.3.2</junit.jupiter.version>
+        <spring-test.version>5.1.4.RELEASE</spring-test.version>
     </properties>
 
     <dependencies>
+
+        <!--Logging-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Spring -->
         <dependency>
@@ -72,7 +88,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.13</version>
+            <version>8.0.11</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -88,6 +104,22 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson-json.version}</version>
         </dependency>
+
+        <!--Test-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring-test.version}</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 
