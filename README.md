@@ -1,7 +1,10 @@
 # curl commands for rest-api testing
 
-#### create user
-curl -s -X POST -d '{"login":"NewUser", "password":"00000"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/crud_app/rest/users
+#### create user with role USER
+curl -s -X POST -d '{"login":"NewUser000", "password":"00000"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/crud_app/rest/users
+
+#### create user with role ADMIN
+curl -s -X POST -d '{"login":"NewUser111", "password":"00000"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/crud_app/rest/users?admin=1
 
 #### get user 1
 curl -s http://localhost:8080/crud_app/rest/users/1
@@ -26,7 +29,7 @@ curl -s http://localhost:8080/crud_app/rest/dicts/1
 #### update role 2
 curl -s -X PUT -d '{"dictType":"Role", "name": "ADMIN_ROLE_UPDATED", "ext_id":"2"}' -H 'Content-Type:application/json' http://localhost:8080/crud_app/rest/dicts/2
 
-#### delete role 1
+#### delete role 1 (linked fields in user-table are set to NULL)
 curl -s -X DELETE http://localhost:8080/crud_app/rest/dicts/1
 
 #### get all dictionaries

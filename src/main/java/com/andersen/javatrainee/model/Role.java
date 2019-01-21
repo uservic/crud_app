@@ -3,6 +3,8 @@ package com.andersen.javatrainee.model;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue(value = "Role")
@@ -13,6 +15,9 @@ public class Role extends Dictionary {
 
     @Column(name = "ext_id")
     private Integer ext_id;
+
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
 
     public Role() {
 
