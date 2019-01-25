@@ -3,6 +3,8 @@ package com.andersen.javatrainee.model;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
@@ -13,9 +15,13 @@ public class User {
     private Integer id;
 
     @Column(name = "login")
+    @NotNull
+    @Size(min=5, max=15)
     private String login;
 
     @Column(name = "password")
+    @NotNull
+    @Size(min=5, max=25)
     private String password;
 
     @ManyToOne(fetch = FetchType.EAGER)

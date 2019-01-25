@@ -1,4 +1,4 @@
-package com.andersen.javatrainee.web;
+package com.andersen.javatrainee.web.dictionary;
 
 import com.andersen.javatrainee.model.Dictionary;
 import com.andersen.javatrainee.service.DictionaryService;

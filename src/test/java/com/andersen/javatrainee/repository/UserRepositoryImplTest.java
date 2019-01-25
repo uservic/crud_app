@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringJUnitConfig(locations = "classpath:spring/db.xml")
 @Transactional
-class UserRepositoryTest {
+class UserRepositoryImplTest {
 
     @Autowired
-    UserRepository repo;
+    UserRepositoryImpl repo;
 
     @Test
     void save() {

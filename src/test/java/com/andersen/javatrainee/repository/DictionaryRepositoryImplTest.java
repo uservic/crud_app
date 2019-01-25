@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringJUnitConfig(locations = "classpath:spring/db.xml")
 @Transactional
-class DictionaryRepositoryTest {
+class DictionaryRepositoryImplTest {
 
     @Autowired
-    DictionaryRepository repo;
+    DictionaryRepositoryImpl repo;
 
     @Test
     void save() {

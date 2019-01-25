@@ -1,4 +1,4 @@
-package com.andersen.javatrainee.web;
+package com.andersen.javatrainee.web.user;
 
 import com.andersen.javatrainee.model.Role;
 import com.andersen.javatrainee.model.User;

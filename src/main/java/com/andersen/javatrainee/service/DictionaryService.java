@@ -6,11 +6,12 @@ import java.util.List;
 
 public interface DictionaryService {
 
-    Dictionary save(Dictionary user);
+    Dictionary save(Dictionary dictionary);
 
     Dictionary get(int id);
 
     void delete(int id);
 
     List<Dictionary> getAll();
+
 }

@@ -1,14 +1,17 @@
 package com.andersen.javatrainee.repository;
 
 import com.andersen.javatrainee.model.Dictionary;
-import org.springframework.beans.factory.annotation.Autowired;
 
-@org.springframework.stereotype.Repository
+import java.util.List;
 
-public class DictionaryRepository extends AbstractRepository<Dictionary> {
+public interface DictionaryRepository {
 
-    @Autowired
-    public DictionaryRepository(DataJpaDictionaryRepository dataJpaDictionaryRepository) {
-        this.jpaRepository = dataJpaDictionaryRepository;
-    }
+    Dictionary save(Dictionary dictionary);
+
+    Dictionary get(int id);
+
+    void delete(int id);
+
+    List<Dictionary> getAll();
+
 }

@@ -1,7 +1,7 @@
 package com.andersen.javatrainee.service;
 
 import com.andersen.javatrainee.model.Dictionary;
-import com.andersen.javatrainee.repository.Repository;
+import com.andersen.javatrainee.repository.DictionaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +10,16 @@ import java.util.List;
 @Service
 public class DictionaryServiceImpl implements DictionaryService {
 
-    private Repository<Dictionary> repository;
+    private DictionaryRepository repository;
 
     @Autowired
-    public DictionaryServiceImpl(Repository<Dictionary> repository) {
+    public DictionaryServiceImpl(DictionaryRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public Dictionary save(Dictionary user) {
-        return repository.save(user);
+    public Dictionary save(Dictionary dictionary) {
+        return repository.save(dictionary);
     }
 
     @Override
