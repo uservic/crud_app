@@ -1,14 +1,13 @@
 package com.andersen.javatrainee.model;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import org.springframework.security.core.GrantedAuthority;
+
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @DiscriminatorValue(value = "Role")
-public class Role extends Dictionary {
+public class Role extends Dictionary implements GrantedAuthority {
 
     @Column(name = "name")
     private String name;
@@ -16,7 +15,7 @@ public class Role extends Dictionary {
     @Column(name = "ext_id")
     private Integer ext_id;
 
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private List<User> users;
 
     public Role() {
@@ -60,5 +59,10 @@ public class Role extends Dictionary {
                 ", name='" + name + '\'' +
                 ", ext_id=" + ext_id +
                 '}';
+    }
+
+    @Override
+    public String getAuthority() {
+        return "ROLE_" + getName();
     }
 }

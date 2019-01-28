@@ -17,4 +17,10 @@
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp"/>
 
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver"/>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+
 </beans>
