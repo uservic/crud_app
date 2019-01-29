@@ -1,5 +1,6 @@
 package com.andersen.javatrainee.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -78,6 +79,7 @@ public class User {
         this.role = role;
     }
 
+    @JsonIgnore
     public boolean isNew() {
         return this.id == null;
     }

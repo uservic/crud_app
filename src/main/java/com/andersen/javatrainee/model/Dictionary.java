@@ -1,5 +1,6 @@
 package com.andersen.javatrainee.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.hibernate.Hibernate;
@@ -75,10 +76,12 @@ public abstract class Dictionary {
         this.ext_id = ext_id;
     }
 
+    @JsonIgnore
     public String getClassSimpleName() {
         return getClass().getSimpleName();
     }
 
+    @JsonIgnore
     public boolean isNew() {
         return this.id == null;
     }
