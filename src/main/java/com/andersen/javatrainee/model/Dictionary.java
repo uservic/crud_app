@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -18,15 +22,33 @@ import javax.persistence.*;
 })
 public abstract class Dictionary {
 
+    public static final String[] DICT_TYPES = {"ROLE"};
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
+    @Column(name = "name")
+    @NotBlank(message = "Name must not be blank")
+    @Size(min = 3, max = 15, message = "Name must be from 3 to 15 characters")
+    protected String name;
+
+    @Column(name = "ext_id")
+    @NotNull(message = "Ext_id must not be null")
+    @Min(value = 0, message = "Ext_id must be >= 0")
+    protected Integer ext_id;
+
     public Dictionary() {
     }
 
-    public Dictionary(Integer id) {
+    public Dictionary(String name, Integer ext_id) {
+        this(null, name, ext_id);
+    }
+
+    public Dictionary(Integer id, String name, Integer ext_id) {
         this.id = id;
+        this.name = name;
+        this.ext_id = ext_id;
     }
 
     public Integer getId() {
@@ -35,6 +57,30 @@ public abstract class Dictionary {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getExt_id() {
+        return ext_id;
+    }
+
+    public void setExt_id(Integer ext_id) {
+        this.ext_id = ext_id;
+    }
+
+    public String getClassSimpleName() {
+        return getClass().getSimpleName();
+    }
+
+    public boolean isNew() {
+        return this.id == null;
     }
 
     @Override

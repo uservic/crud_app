@@ -9,8 +9,8 @@
 <body>
 
 <h2><u>Home Page</u></h2>
-<c:if test="${not empty param.message}" >
-    <span style ="color:green">${param.message} </span>
+<c:if test="${not empty param.message}">
+    <span style="color:green">${param.message} </span>
 </c:if>
 <br/>
 <br/>
@@ -18,7 +18,7 @@
     <table>
         <tr>
             <td>
-                <a href="<c:url value="/user/register" />" >Register</a> |
+                <a href="<c:url value="/user/register" />">Register</a> |
             </td>
             <td>
                 <a href="<c:url value="/login" />" style="color:blue">Sign in</a>

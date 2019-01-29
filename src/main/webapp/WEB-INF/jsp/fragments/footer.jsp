@@ -4,5 +4,5 @@
 
 <sec:authorize access="isAuthenticated()">
     You are authenticated!
-    <a href="<c:url value="/logout" />">Logout</a>
+    <a href="<c:url value="/logout" />" >Logout</a> | <a href="<c:url value="/user/profile" />" >My Profile</a>
 </sec:authorize>

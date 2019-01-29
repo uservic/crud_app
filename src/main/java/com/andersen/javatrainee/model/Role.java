@@ -2,18 +2,17 @@ package com.andersen.javatrainee.model;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
 @DiscriminatorValue(value = "Role")
 public class Role extends Dictionary implements GrantedAuthority {
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "ext_id")
-    private Integer ext_id;
+    public static final String[] ROLES = {"USER", "ADMIN"};
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private List<User> users;
@@ -27,29 +26,11 @@ public class Role extends Dictionary implements GrantedAuthority {
     }
 
     public Role(Integer id, String name, Integer ext_id) {
-        super(id);
-        this.name = name;
-        this.ext_id = ext_id;
+        super(id, name, ext_id);
     }
 
     public Role(Role role) {
         this(role.getId(), role.getName(), role.getExt_id());
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getExt_id() {
-        return ext_id;
-    }
-
-    public void setExt_id(Integer ext_id) {
-        this.ext_id = ext_id;
     }
 
     @Override
@@ -63,6 +44,7 @@ public class Role extends Dictionary implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return "ROLE_" + getName();
+        return "ROLE_" + name;
     }
+
 }

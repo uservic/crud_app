@@ -4,7 +4,6 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -16,15 +15,13 @@ public class User {
     private Integer id;
 
     @Column(name = "login")
-    @NotNull(message = "Login must not be null")
     @NotBlank(message = "Login must not be blank")
-    @Size(min=3, max=15, message = "Login must be from 3 to 15 characters")
+    @Size(min = 3, max = 15, message = "Login must be from 3 to 15 characters")
     private String login;
 
     @Column(name = "password")
-    @NotNull(message = "Password must not be null")
     @NotBlank(message = "Password must not be blank")
-    @Size(min=5, message = "Password must be from 5 characters")
+    @Size(min = 5, message = "Password must be from 5 characters")
     private String password;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -82,7 +79,7 @@ public class User {
     }
 
     public boolean isNew() {
-        return getId() == null;
+        return this.id == null;
     }
 
     @Override
@@ -107,4 +104,5 @@ public class User {
                 ", role=" + role +
                 '}';
     }
+
 }

@@ -21,8 +21,8 @@
             <td>${user.login}</td>
             <td>${user.password}</td>
             <td>${user.role.authority}</td>
-            <td><a href="<c:url value="/admin/delete?id=${user.id}" />" style="color:darkred">delete</a></td>
-            <td><a href="<c:url value="/admin/update?id=${user.id}" />" style="color:blue">update</a></td>
+            <td><a href="<c:url value="/admin/deleteUser?id=${user.id}" />" style="color:darkred">delete</a></td>
+            <td><a href="<c:url value="/admin/updateUser?id=${user.id}" />" style="color:blue">update</a></td>
         </tr>
     </c:forEach>
 </table>
