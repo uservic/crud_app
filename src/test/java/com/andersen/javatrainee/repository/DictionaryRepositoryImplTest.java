@@ -13,7 +13,7 @@ import static com.andersen.javatrainee.DictionaryTestData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringJUnitConfig(locations = "classpath:spring/db.xml")
+@SpringJUnitConfig(locations = {"classpath:spring/db.xml", "classpath:spring/security.xml"})
 @Transactional
 class DictionaryRepositoryImplTest {
 

@@ -12,7 +12,7 @@ import java.util.List;
 import static com.andersen.javatrainee.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringJUnitConfig(locations = "classpath:spring/db.xml")
+@SpringJUnitConfig(locations = {"classpath:spring/db.xml", "classpath:spring/security.xml"})
 @Transactional
 class UserRepositoryImplTest {
 

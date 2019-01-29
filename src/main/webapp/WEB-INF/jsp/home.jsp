@@ -9,7 +9,6 @@
 <body>
 
 <h2><u>Home Page</u></h2>
-
 <c:if test="${not empty param.message}" >
     <span style ="color:green">${param.message} </span>
 </c:if>
