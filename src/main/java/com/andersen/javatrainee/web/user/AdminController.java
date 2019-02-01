@@ -61,11 +61,10 @@ public class AdminController {
         return "redirect:users";
     }
 
-    @GetMapping(value = "/deleteUser")
-    public String deleteUser(@RequestParam Integer id, Model model) {
+    @PostMapping(value = "/deleteUser/{id}")
+    public String deleteUser(@PathVariable Integer id) {
         userService.delete(id);
-        model.addAttribute("users", userService.getAll());
-        return "users";
+        return "redirect:users";
     }
 
     ////////////////*Dictionary-methods*/////////////////////
@@ -103,10 +102,9 @@ public class AdminController {
         return "redirect:dicts";
     }
 
-    @GetMapping("/deleteDict")
-    public String deleteDict(@RequestParam Integer id, Model model) {
+    @PostMapping("/deleteDict/{id}")
+    public String deleteDict(@PathVariable Integer id) {
         dictionaryService.delete(id);
-        model.addAttribute("dicts", dictionaryService.getAll());
-        return "dicts";
+        return "redirect:dicts";
     }
 }

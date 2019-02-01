@@ -2,11 +2,14 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<!doctype html>
 <html lang="en">
 
-<jsp:include page="fragments/header.jsp"/>
+<jsp:include page="fragments/headTag.jsp"/>
 
 <body>
+
+<jsp:include page="fragments/bodyHeader.jsp"/>
 
 <c:set var="update" value="Update ${userTo.login}'s Profile"/>
 

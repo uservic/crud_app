@@ -1,8 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<html>
+<!doctype html>
+<html lang="en">
 
-<jsp:include page="fragments/header.jsp"/>
+<jsp:include page="fragments/headTag.jsp"/>
 
 <body>
 
@@ -21,7 +23,8 @@
             <td>${dict.classSimpleName}</td>
             <td>${dict.name}</td>
             <td>${dict.ext_id}</td>
-            <td><a href="<c:url value="/admin/deleteDict?id=${dict.id}" />" style="color:darkred">delete</a></td>
+            <%--<td><a href="<c:url value="/admin/deleteDict/${dict.id}" />" style="color:darkred">delete</a></td>--%>
+            <td><spring:url value="/admin/deleteDict/${dict.id}" >delete</spring:url></td>
             <td><a href="<c:url value="/admin/updateDict?id=${dict.id}" />" style="color:blue">update</a></td>
         </tr>
     </c:forEach>

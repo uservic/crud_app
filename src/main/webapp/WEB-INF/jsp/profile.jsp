@@ -2,32 +2,29 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<!doctype html>
 <html lang="en">
 
-<jsp:include page="fragments/header.jsp"/>
+<jsp:include page="fragments/headTag.jsp"/>
 
 <body>
+
+<jsp:include page="fragments/bodyHeader.jsp"/>
+
 <c:set var="regTrue" value="New User Registration"/>
 <c:set var="regFalse" value="${userTo.login} Profile"/>
 
+<div style="margin-left: 30px">
 <table>
     <tr>
         <td>
             <h2> ${register ? regTrue : regFalse}&nbsp;&nbsp;&nbsp; </h2>
         </td>
         <td>
-            <c:if test="${param.changed}" >
-            <h3><span style ="color:green">Profile changed.</span></h3>
-        </c:if>
+
         </td>
     </tr>
 </table>
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-    <a href="<c:url value="/admin/users" />" >Users</a><br>
-    <a href="<c:url value="/admin/dicts" />" >Dictionaries</a>
-</sec:authorize>
-<br>
-<br>
 <form:form modelAttribute="userTo" method="post"
            action="${register ? 'register' : 'profile'}">
     <table>
@@ -42,11 +39,12 @@
             <td><form:errors path="password" cssStyle="color: red" /></td>
         </tr>
         <tr>
-            <td><input type="button" value="Cancel" onclick="window.history.back()"></td>
             <td><input type="submit" value="Save"></td>
         </tr>
     </table>
+    <br>
 </form:form>
+</div>
 
 <jsp:include page="fragments/footer.jsp"/>
 

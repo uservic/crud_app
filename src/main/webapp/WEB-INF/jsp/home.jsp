@@ -2,29 +2,35 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<!doctype html>
 <html lang="en">
 
-<jsp:include page="fragments/header.jsp"/>
+<jsp:include page="fragments/headTag.jsp"/>
 
 <body>
 
-<h2><u>Home Page</u></h2>
+<jsp:include page="fragments/bodyHeader.jsp"/>
+
+<div style="margin: 10px;"><h3>Welcome!</h3></div>
+
 <c:if test="${not empty param.message}">
-    <span style="color:green">${param.message} </span>
+    <div style="margin-left: 30px;"><span style="color:green">${param.message} </span></div>
+    <br>
 </c:if>
-<br/>
-<br/>
+
 <sec:authorize access="isAnonymous()">
-    <table>
-        <tr>
-            <td>
-                <a href="<c:url value="/user/register" />">Register</a> |
-            </td>
-            <td>
-                <a href="<c:url value="/login" />" style="color:blue">Sign in</a>
-            </td>
-        </tr>
-    </table>
+    <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <a href="user/register" class="btn btn-sm btn-success" type="button">Register</a>
+                </div>
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <a href="login" class="btn btn-sm align-middle btn-outline-secondary" type="submit">Sign In</a>
+                </div>
+            </div>
+        </form>
+    </nav>
 </sec:authorize>
 
 </body>
