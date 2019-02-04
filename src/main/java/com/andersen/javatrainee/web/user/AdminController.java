@@ -58,16 +58,16 @@ public class AdminController {
         }
         userService.save(user);
         status.setComplete();
-        return "redirect:users";
+        return "redirect:/admin/users";
     }
 
     @PostMapping(value = "/deleteUser/{id}")
     public String deleteUser(@PathVariable Integer id) {
         userService.delete(id);
-        return "redirect:users";
+        return "redirect:/admin/users";
     }
 
-    ////////////////*Dictionary-methods*/////////////////////
+    ////////////////*Dictionary-methods*//////////////////
 
     @GetMapping("/dicts")
     public String showDictionaries(Model model) {
@@ -99,12 +99,12 @@ public class AdminController {
         }
         dictionaryService.save(createDictionaryFromTO(dictTO));
         status.setComplete();
-        return "redirect:dicts";
+        return "redirect:/admin/dicts";
     }
 
     @PostMapping("/deleteDict/{id}")
     public String deleteDict(@PathVariable Integer id) {
         dictionaryService.delete(id);
-        return "redirect:dicts";
+        return "redirect:/admin/dicts";
     }
 }

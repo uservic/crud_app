@@ -11,12 +11,16 @@
 
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
-<div style="margin: 10px;"><h3>Welcome!</h3></div>
-
-<c:if test="${not empty param.message}">
-    <div style="margin-left: 30px;"><span style="color:green">${param.message} </span></div>
+<div class="container">
     <br>
-</c:if>
+    <h3>Welcome!</h3>
+    <br>
+    <c:if test="${not empty param.message}">
+        <span style="color:green">${param.message} </span>
+        <br>
+        <br>
+    </c:if>
+</div>
 
 <sec:authorize access="isAnonymous()">
     <nav class="navbar navbar-light bg-light">

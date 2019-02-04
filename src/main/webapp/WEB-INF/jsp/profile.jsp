@@ -14,6 +14,7 @@
 <c:set var="regTrue" value="New User Registration"/>
 <c:set var="regFalse" value="${userTo.login} Profile"/>
 
+<br>
 <div style="margin-left: 30px">
 <table>
     <tr>

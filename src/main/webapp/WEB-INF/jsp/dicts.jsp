@@ -8,29 +8,46 @@
 
 <body>
 
-<h2>Dictionaries</h2>
-<a href="<c:url value="/admin/createDict" />" style="color:green">Add Dictionary</a>
-<br>
-<br>
-<table border="1" cellpadding="8" cellspacing="0">
-    <tr>
-        <th>Discriminator</th>
-        <th>Name</th>
-        <th>Ext_id</th>
-    </tr>
-    <c:forEach items="${dicts}" var="dict">
-        <tr>
-            <td>${dict.classSimpleName}</td>
-            <td>${dict.name}</td>
-            <td>${dict.ext_id}</td>
-            <%--<td><a href="<c:url value="/admin/deleteDict/${dict.id}" />" style="color:darkred">delete</a></td>--%>
-            <td><spring:url value="/admin/deleteDict/${dict.id}" >delete</spring:url></td>
-            <td><a href="<c:url value="/admin/updateDict?id=${dict.id}" />" style="color:blue">update</a></td>
-        </tr>
-    </c:forEach>
-</table>
+<jsp:include page="fragments/bodyHeader.jsp"/>
 
-<br>
+<div class="container">
+    <br>
+    <h2>Dictionaries</h2>
+    <a class="btn btn-outline-success btn-sm" href="<c:url value="/admin/createDict"/>"
+       role="button">Add User</a>
+    <br>
+    <br>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Discriminator</th>
+            <th scope="col">Name</th>
+            <th scope="col">Ext_id</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${dicts}" var="dict">
+            <tr>
+                <td>${dict.classSimpleName}</td>
+                <td>${dict.name}</td>
+                <td>${dict.ext_id}</td>
+                <td>
+                    <spring:url value="/admin/deleteDict/${dict.id}" var="deleteDict"/>
+                    <spring:url value="/admin/updateDict?id=${dict.id}" var="updateDict"/>
+
+                    <form class="form-inline" method="post" action="${deleteDict}">
+                        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                        <a class="btn btn-warning btn-sm" href="${updateDict}" role="button">Update</a>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
+</div>
 </body>
 
 <jsp:include page="fragments/footer.jsp"/>
