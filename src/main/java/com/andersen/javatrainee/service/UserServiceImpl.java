@@ -2,6 +2,8 @@ package com.andersen.javatrainee.service;
 
 import com.andersen.javatrainee.model.User;
 import com.andersen.javatrainee.repository.UserRepository;
+import com.andersen.javatrainee.util.ValidationUtil;
+import com.andersen.javatrainee.util.exception.DuplicateFoundException;
 import com.andersen.javatrainee.web.AuthorizedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,7 +26,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User save(User user) {
+    public User save(User user) throws DuplicateFoundException {
+        ValidationUtil.checkNotFoundWithLogin(
+                repository.getByLogin(user.getLogin()), user.getLogin());
         String encryptedPassword = encoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
         return repository.save(user);

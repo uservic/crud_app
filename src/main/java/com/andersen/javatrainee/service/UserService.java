@@ -1,12 +1,13 @@
 package com.andersen.javatrainee.service;
 
 import com.andersen.javatrainee.model.User;
+import com.andersen.javatrainee.util.exception.DuplicateFoundException;
 
 import java.util.List;
 
 public interface UserService {
 
-    User save(User user);
+    User save(User user) throws DuplicateFoundException;
 
     User get(int id);
 
