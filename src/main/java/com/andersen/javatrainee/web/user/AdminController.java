@@ -5,6 +5,8 @@ import com.andersen.javatrainee.service.DictionaryService;
 import com.andersen.javatrainee.service.UserService;
 import com.andersen.javatrainee.to.DictionaryTO;
 import com.andersen.javatrainee.util.Util;
+import com.andersen.javatrainee.util.exception.DuplicateFoundException;
+import com.andersen.javatrainee.util.exception.ExceptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,7 +58,11 @@ public class AdminController {
             model.addAttribute("roles", Util.makeRolesList());
             return "userForm";
         }
-        userService.save(user);
+        try {
+            userService.save(user);
+        } catch (DuplicateFoundException e) {
+            return ExceptionUtil.handleDuplicateException(model, e, "userForm");
+        }
         status.setComplete();
         return "redirect:/admin/users";
     }

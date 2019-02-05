@@ -3,6 +3,8 @@ package com.andersen.javatrainee.web.user;
 import com.andersen.javatrainee.model.Role;
 import com.andersen.javatrainee.model.User;
 import com.andersen.javatrainee.service.UserService;
+import com.andersen.javatrainee.util.exception.DuplicateFoundException;
+import com.andersen.javatrainee.util.exception.ExceptionUtil;
 import com.andersen.javatrainee.web.AuthorizedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -42,6 +44,11 @@ public class UserController {
             return "profile";
         }
         user.setRole(new Role(1, "User", 1));
+        try {
+            service.save(user);
+        } catch (DuplicateFoundException e) {
+            return ExceptionUtil.handleDuplicateException(model, e, "profile");
+        }
         service.save(user);
         status.setComplete();
         return "redirect:/home?message=You are registered. Please Sign in.";
@@ -55,7 +62,7 @@ public class UserController {
 
     @PostMapping("/profile")
     public String updateProfile(@Valid @ModelAttribute("userTo") User user, BindingResult result,
-                                @AuthenticationPrincipal AuthorizedUser authorizedUser,
+                                Model model, @AuthenticationPrincipal AuthorizedUser authorizedUser,
                                 SessionStatus status) {
 
         if (result.hasErrors()) {
@@ -63,7 +70,12 @@ public class UserController {
         }
         user.setId(authorizedUser.getId());
         user.setRole(authorizedUser.getRole());
-        authorizedUser.setUser(service.save(user));
+        try {
+            authorizedUser.setUser(service.save(user));
+        } catch (DuplicateFoundException e) {
+//            model.addAttribute()
+            return ExceptionUtil.handleDuplicateException(model, e, "profile");
+        }
         status.setComplete();
         return "redirect:profile?changed=true";
     }
