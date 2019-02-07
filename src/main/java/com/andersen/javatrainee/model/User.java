@@ -25,7 +25,7 @@ public class User {
     @Size(min = 5, message = "Password must be from 5 characters")
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "role")
     private Role role;
 

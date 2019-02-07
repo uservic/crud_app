@@ -47,9 +47,9 @@ public class UserController {
         try {
             service.save(user);
         } catch (DuplicateFoundException e) {
+            model.addAttribute("register", true);
             return ExceptionUtil.handleDuplicateException(model, e, "profile");
         }
-        service.save(user);
         status.setComplete();
         return "redirect:/home?message=You are registered. Please Sign in.";
     }
@@ -66,6 +66,10 @@ public class UserController {
                                 SessionStatus status) {
 
         if (result.hasErrors()) {
+            Object target = result.getTarget();
+            if (target != null && target instanceof User) {
+                ((User) target).setLogin(authorizedUser.getUser().getLogin());
+            }
             return "profile";
         }
         user.setId(authorizedUser.getId());
@@ -73,8 +77,7 @@ public class UserController {
         try {
             authorizedUser.setUser(service.save(user));
         } catch (DuplicateFoundException e) {
-//            model.addAttribute()
-            return ExceptionUtil.handleDuplicateException(model, e, "profile");
+            return ExceptionUtil.handleDuplicateException(model, e, "profile", authorizedUser.getUser());
         }
         status.setComplete();
         return "redirect:profile?changed=true";

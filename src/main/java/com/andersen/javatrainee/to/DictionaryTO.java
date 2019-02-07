@@ -1,8 +1,6 @@
 package com.andersen.javatrainee.to;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -17,8 +15,6 @@ public class DictionaryTO implements Serializable {
     @Size(min = 3, max = 15, message = "Name must be from 3 to 15 characters")
     protected String name;
 
-    @NotNull(message = "Ext_id must not be null")
-    @Min(value = 0, message = "Ext_id must be >= 0")
     protected Integer ext_id;
 
     public DictionaryTO() {

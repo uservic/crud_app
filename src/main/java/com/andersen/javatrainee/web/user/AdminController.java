@@ -7,7 +7,9 @@ import com.andersen.javatrainee.to.DictionaryTO;
 import com.andersen.javatrainee.util.Util;
 import com.andersen.javatrainee.util.exception.DuplicateFoundException;
 import com.andersen.javatrainee.util.exception.ExceptionUtil;
+import com.andersen.javatrainee.web.AuthorizedUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,15 +55,22 @@ public class AdminController {
 
     @PostMapping("/createOrUpdateUser")
     public String createOrUpdateUser(@Valid @ModelAttribute("userTo") User user,
-                                     BindingResult result, Model model, SessionStatus status) {
+                                     BindingResult result, Model model,
+                                     SessionStatus status,
+                                     @AuthenticationPrincipal AuthorizedUser authorizedUser) {
         if (result.hasErrors()) {
+            Object target = result.getTarget();
+            if (target != null && target instanceof User) {
+                ((User) target).setLogin(authorizedUser.getUser().getLogin());
+            }
             model.addAttribute("roles", Util.makeRolesList());
             return "userForm";
         }
         try {
             userService.save(user);
         } catch (DuplicateFoundException e) {
-            return ExceptionUtil.handleDuplicateException(model, e, "userForm");
+            return ExceptionUtil.handleDuplicateException(model, e, "userForm",
+                    authorizedUser.getUser());
         }
         status.setComplete();
         return "redirect:/admin/users";
@@ -114,3 +123,7 @@ public class AdminController {
         return "redirect:/admin/dicts";
     }
 }
+
+// TODO: 07.02.2019
+//  admin new user creation/update - role problem
+//  list of roles not updating after add of new roleName

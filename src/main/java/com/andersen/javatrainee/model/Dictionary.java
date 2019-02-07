@@ -1,14 +1,13 @@
 package com.andersen.javatrainee.model;
 
+import com.andersen.javatrainee.model.listeners.DictionaryListener;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -21,6 +20,7 @@ import javax.validation.constraints.Size;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Role.class, name = "Role")
 })
+@EntityListeners(DictionaryListener.class)
 public abstract class Dictionary {
 
     public static final String[] DICT_TYPES = {"ROLE"};
@@ -35,8 +35,6 @@ public abstract class Dictionary {
     protected String name;
 
     @Column(name = "ext_id")
-    @NotNull(message = "Ext_id must not be null")
-    @Min(value = 0, message = "Ext_id must be >= 0")
     protected Integer ext_id;
 
     public Dictionary() {

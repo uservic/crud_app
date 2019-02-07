@@ -13,12 +13,18 @@ import java.util.List;
 public class Role extends Dictionary implements GrantedAuthority {
 
     public static final String[] ROLES = {"USER", "ADMIN"};
+    public static final Role USER = new Role(1,"USER", 1);
+    public static final Role ADMIN = new Role(2,"ADMIN", 2);
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private List<User> users;
 
     public Role() {
 
+    }
+
+    public Role(String name) {
+        this.name = name;
     }
 
     public Role(String name, Integer ext_id) {

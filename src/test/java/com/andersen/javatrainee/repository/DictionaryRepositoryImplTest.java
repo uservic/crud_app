@@ -22,11 +22,14 @@ class DictionaryRepositoryImplTest {
 
     @Test
     void save() {
-        Role new_role = new Role(NEW_ROLE);
+        Role new_role = NEW_ROLE;
+        Role new_123 = new Role("role_123");
         Dictionary savedRole = repo.save(new_role);
+        Dictionary savedRole123 = repo.save(new_123);
         List<Dictionary> allDictionaries = repo.getAll();
-        assertEquals(3, allDictionaries.size());
+        assertEquals(4, allDictionaries.size());
         assertEquals(new_role, savedRole);
+        assertEquals(3, savedRole.getExt_id().intValue());
     }
 
     @Test

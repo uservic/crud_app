@@ -14,7 +14,7 @@
     <br>
     <h2>Dictionaries</h2>
     <a class="btn btn-outline-success btn-sm" href="<c:url value="/admin/createDict"/>"
-       role="button">Add User</a>
+       role="button">Add Dictionary</a>
     <br>
     <br>
 

@@ -1,5 +1,6 @@
 drop table if exists user;
 drop table if exists dictionary;
+drop table if exists dt_seq_gen;
 
 create table dictionary
 (
@@ -23,3 +24,14 @@ create table user
 		foreign key (role) references dictionary (id)
 			on delete set null
 );
+
+create table dt_seq_gen
+(
+	name varchar(255) not null,
+	counter int not null,
+	constraint `dict-types-seq-gen_name_uindex`
+		unique (name)
+);
+
+alter table dt_seq_gen
+	add primary key (name);

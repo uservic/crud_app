@@ -1,24 +1,21 @@
 package com.andersen.javatrainee.util;
 
+import com.andersen.javatrainee.model.User;
 import com.andersen.javatrainee.util.exception.DuplicateFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ValidationUtil {
+
+    public static final Logger log = LoggerFactory.getLogger(ValidationUtil.class);
 
     private ValidationUtil() {
     }
 
-    public static <T> T checkNotFoundWithLogin(T object, String login) {
-        return checkNotFound(object, "login=" + login);
-    }
-
-    public static <T> T checkNotFound(T object, String msg) {
-        checkNotFound(object != null, msg);
-        return object;
-    }
-
-    public static void checkNotFound(boolean found, String arg) {
-        if (found) {
-            throw new DuplicateFoundException(arg);
+    public static void checkDuplicateLoginId(User userFromRepo, String oldLogin, Integer oldId) {
+        if (userFromRepo != null && !userFromRepo.getId().equals(oldId)) {
+            log.debug("Duplicate found: login {}, id {}", oldLogin, oldId);
+            throw new DuplicateFoundException(oldLogin);
         }
     }
 

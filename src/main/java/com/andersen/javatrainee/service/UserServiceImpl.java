@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User save(User user) throws DuplicateFoundException {
-        ValidationUtil.checkNotFoundWithLogin(
-                repository.getByLogin(user.getLogin()), user.getLogin());
+        ValidationUtil.checkDuplicateLoginId(
+                repository.getByLogin(user.getLogin()), user.getLogin(), user.getId());
         String encryptedPassword = encoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
         return repository.save(user);
