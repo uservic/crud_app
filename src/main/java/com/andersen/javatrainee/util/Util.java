@@ -8,13 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.andersen.javatrainee.model.Dictionary.DICT_TYPES;
-import static com.andersen.javatrainee.model.Role.ROLES;
 
 public class Util {
-
-    public static List<String> makeRolesList() {
-        return Arrays.asList(ROLES);
-    }
 
     public static List<String> makeDictTypesList() {
         return Arrays.asList(DICT_TYPES);

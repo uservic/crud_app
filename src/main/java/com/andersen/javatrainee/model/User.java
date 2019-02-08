@@ -25,7 +25,7 @@ public class User {
     @Size(min = 5, message = "Password must be from 5 characters")
     private String password;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "role")
     private Role role;
 

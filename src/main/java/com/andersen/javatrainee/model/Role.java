@@ -4,20 +4,16 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import java.util.List;
 
 @Entity
 @DiscriminatorValue(value = "Role")
 public class Role extends Dictionary implements GrantedAuthority {
 
-    public static final String[] ROLES = {"USER", "ADMIN"};
-    public static final Role USER = new Role(1,"USER", 1);
-    public static final Role ADMIN = new Role(2,"ADMIN", 2);
+    public static final String ROLE_USER = "user";
+    public static final String ROLE_ADMIN = "admin";
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private List<User> users;
+//    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+//    private Set<User> users;
 
     public Role() {
 

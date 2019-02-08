@@ -23,7 +23,7 @@
         </tr>
     </table>
     <form:form modelAttribute="userTo" method="post"
-               action="createOrUpdateUser">
+               action="${create ?'createUser':'updateUser'}">
         <form:hidden path="id"/>
         <table>
             <tr>
@@ -40,8 +40,12 @@
                 <td><form:errors path="password" cssStyle="color: red"/></td>
             </tr>
             <tr>
-                <td><form:label path="role">Role</form:label></td>
-                <td><form:select path="role" items="${roles}"/></td>
+                <td>Role</td>
+                <td>
+                <form:select path="role">
+                    <form:options items="${roles}" itemValue="name" itemLabel="name"/>
+                </form:select>
+                </td>
             </tr>
             <tr>
                 <td><input type="button" value="Cancel" onclick="window.history.back()"></td>

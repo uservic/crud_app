@@ -1,6 +1,7 @@
 package com.andersen.javatrainee.service;
 
 import com.andersen.javatrainee.model.Dictionary;
+import com.andersen.javatrainee.model.Role;
 import com.andersen.javatrainee.repository.DictionaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,15 @@ public class DictionaryServiceImpl implements DictionaryService {
     @Override
     public List<Dictionary> getAll() {
         return repository.getAll();
+    }
+
+    @Override
+    public Role getRoleByName(String name) {
+        return repository.getRoleByName(name);
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        return repository.getAllRoles();
     }
 }
