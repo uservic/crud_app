@@ -13,7 +13,7 @@ public interface DataJpaDictionaryRepository extends JpaRepository<Dictionary, I
     @Query("select r from Role r where r.name=:name")
     Dictionary getRoleByName(@Param("name") String name);
 
-    @Query("select d from Dictionary d where type(d) ='role'")
+    @Query("select d from Dictionary d where type(d) ='Role'")
     List<Role> getAllRoles();
 
 }
