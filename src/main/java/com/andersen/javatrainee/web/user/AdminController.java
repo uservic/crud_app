@@ -17,6 +17,7 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
 
@@ -25,6 +26,7 @@ import static com.andersen.javatrainee.util.Util.createDictionaryFromTO;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
     private UserService userService;
     private DictionaryService dictionaryService;
 
@@ -43,7 +45,7 @@ public class AdminController {
     @GetMapping("/createUser")
     public String createUser(Model model) {
         model.addAttribute("userTo", new User());
-        resetUserFormView(model);
+        resetCreateUserFormView(model);
         return "userForm";
     }
 
@@ -56,27 +58,18 @@ public class AdminController {
 
     @PostMapping("/createUser")
     public String createUser(@Valid @ModelAttribute("userTo") User user,
-                                     BindingResult result, Model model,
-                                     SessionStatus status,
-                                     @AuthenticationPrincipal AuthorizedUser authorizedUser) {
+                             BindingResult result, Model model,
+                             SessionStatus status,
+                             @AuthenticationPrincipal AuthorizedUser authorizedUser) {
         if (result.hasErrors()) {
-//            Object target = result.getTarget();
-//            if (target instanceof User) {
-//                ((User) target).setLogin(authorizedUser.getUser().getLogin());
-//            }
-//            model.addAttribute("roles", dictionaryService.getAllRoles());
-
-//            model.addAttribute("userTo", new User());
-//            model.addAttribute("roles", dictionaryService.getAllRoles());
-//            model.addAttribute("create", true);
-            resetUserFormView(model);
+            resetCreateUserFormView(model);
             return "userForm";
         }
 
         try {
             userService.save(user);
         } catch (DuplicateFoundException e) {
-            resetUserFormView(model);
+            resetCreateUserFormView(model);
             model.addAttribute("errMsg", e.getMessage() + ". Please, enter another login.");
             return "userForm";
         }
@@ -86,19 +79,18 @@ public class AdminController {
 
     @PostMapping("/updateUser")
     public String updateProfile(@Valid @ModelAttribute("userTo") User user, BindingResult result,
-                                Model model, SessionStatus status) {
+                                Model model, SessionStatus status, HttpServletRequest request) {
 
         if (result.hasErrors()) {
-//            Object target = result.getTarget();
-//            if (target instanceof User) {
-//                ((User) target).setLogin(authorizedUser.getUser().getLogin());
-//            }
+            resetUpdateUserFormView(request, "originalLogin", result, model);
             return "userForm";
         }
         try {
             userService.save(user);
         } catch (DuplicateFoundException e) {
-//            return ExceptionUtil.handleDuplicateException(model, e, "userForm", saved_user);
+            resetUpdateUserFormView(request, "originalLogin", result, model);
+            model.addAttribute("errMsg", e.getMessage() + ". Please, enter another login.");
+            return "userForm";
         }
         status.setComplete();
         return "redirect:/admin/users";
@@ -116,16 +108,26 @@ public class AdminController {
         binder.registerCustomEditor(Role.class, "role", new PropertyEditorSupport() {
 
             public void setAsText(String text) {
-                Role buildingType = (Role) dictionaryService.getRoleByName(text);
+                Role buildingType = dictionaryService.getRoleByName(text);
                 setValue(buildingType);
             }
         });
 
     }
 
-    private void resetUserFormView(Model model) {
+    private void resetCreateUserFormView(Model model) {
         model.addAttribute("roles", dictionaryService.getAllRoles());
         model.addAttribute("create", true);
+    }
+
+    private void resetUpdateUserFormView(HttpServletRequest request, String param,
+                                         BindingResult result, Model model) {
+        String originalLogin = request.getParameter(param);
+        Object target = result.getTarget();
+        if (target instanceof User) {
+            ((User) target).setLogin(originalLogin);
+        }
+        model.addAttribute("roles", dictionaryService.getAllRoles());
     }
 
     ////////////////*Dictionary-methods*//////////////////

@@ -25,6 +25,7 @@
     <form:form modelAttribute="userTo" method="post"
                action="${create ?'createUser':'updateUser'}">
         <form:hidden path="id"/>
+        <input type="hidden" name="originalLogin" value="${userTo.login}">
         <table>
             <tr>
                 <td><form:label path="login">Login</form:label></td>
