@@ -21,18 +21,28 @@
     <!--Properties files are accessible to Spring via-->
     <context:property-placeholder location="classpath:db/DB.properties"/>
 
+    <bean class="java.net.URI" id="dbUrl">
+        <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="url" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() + '?sslmode=require' }"/>
+        <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
+        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
+    </bean>
+
     <!--Using scripts to initialize DB-->
     <jdbc:initialize-database enabled="${database.init}">
         <jdbc:script location="classpath:db/${jdbc.initLocation}"/>
         <jdbc:script location="classpath:db/${jdbc.populateDB}"/>
     </jdbc:initialize-database>
 
-    <bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-        <property name="driverClassName" value="${database.jdbcdriver}"/>
-        <property name="url" value="${database.url}"/>
-        <property name="username" value="${database.username}"/>
-        <property name="password" value="${database.password}"/>
-    </bean>
+    <!--<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">-->
+        <!--<property name="driverClassName" value="${database.jdbcdriver}"/>-->
+        <!--<property name="url" value="${database.url}"/>-->
+        <!--<property name="username" value="${database.username}"/>-->
+        <!--<property name="password" value="${database.password}"/>-->
+    <!--</bean>-->
 
     <!-- Default configuration for Hibernate -->
     <bean id="hibernateJpaVendorAdapter"
