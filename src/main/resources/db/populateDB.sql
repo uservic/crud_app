@@ -10,6 +10,12 @@ delete from users;
 delete from dt_seq_gen;
 ALTER SEQUENCE dictionary_id_seq RESTART WITH 1;
 ALTER SEQUENCE users_id_seq RESTART WITH 1;
+ALTER SEQUENCE movies_id_seq RESTART WITH 1;
+ALTER SEQUENCE movie_sessions_id_seq RESTART WITH 1;
+ALTER SEQUENCE hall_id_seq RESTART WITH 1;
+ALTER SEQUENCE seats_id_seq RESTART WITH 1;
+ALTER SEQUENCE price_categories_id_seq RESTART WITH 1;
+ALTER SEQUENCE orders_id_seq RESTART WITH 1;
 
 insert into dictionary (discriminator, name, ext_id) values
 ('Role', 'USER', 1),
@@ -25,33 +31,33 @@ insert into dt_seq_gen (name, counter) VALUES
 ('role', 2);
 
 
-insert into movies (id, title, description) values
-(1, 'Movie_Title_1', 'Description_1'),
-(2, 'Movie_Title_2', 'Description_2');
+insert into movies (title, description) values
+('Amelie', 'Amelie description'),
+('Spiderman 2', 'Spiderman 2 description');
 
-insert into hall (id, hall_name, rows_quant, seats_in_row) values
-(1, 'Hall_A', 2, 2);
+insert into hall (hall_name, rows_quant, seats_in_row) values
+('Hall_A', 2, 2);
 
-insert into seats (id, row, number, hall_id) values
-(1, 1, 1, 1),
-(2, 1, 2, 1),
-(3, 2, 1, 1),
-(4, 2, 2, 1);
+insert into seats (row, number, hall_id) values
+(1, 1, 1),
+(1, 2, 1),
+(2, 1, 1),
+(2, 2, 1);
 
-insert into movie_sessions (id, date, time, movie_id, hall_id) VALUES
-(1, '2019-02-01', '12:00:00', 1, 1),
-(2, '2019-02-01', '15:00:00', 1, 1),
-(3, '2019-02-02', '22:00:00', 2, 1),
-(4, '2019-02-02', '23:30:00', 2, 1),
-(5, '2019-02-03', '09:00:00', 1, 1);
+insert into movie_sessions (date, time, movie_id, hall_id) VALUES
+('2019-02-01', '12:00:00', 1, 1),
+('2019-02-01', '15:00:00', 1, 1),
+('2019-02-02', '22:00:00', 2, 1),
+('2019-02-02', '23:30:00', 2, 1),
+('2019-02-03', '09:00:00', 1, 1);
 
-insert into price_categories (id, cat_type, price) VALUES
-(1, 'morning', 150),
-(2, 'midday', 250),
-(3, 'afternoon', 350);
+insert into price_categories (cat_type, price) VALUES
+('morning', 150),
+('midday', 250),
+('afternoon', 350);
 
-insert into orders (id, price_cat_id, user_id, session_id, seat_id) VALUES
-(1, 2, 1, 1, 1),
-(2, 2, 1, 1, 2),
-(3, 3, 2, 2, 3),
-(4, 3, 3, 2, 4);
+insert into orders (price_cat_id, user_id, session_id, seat_id) VALUES
+(2, 1, 1, 1),
+(2, 1, 1, 2),
+(3, 2, 2, 3),
+(3, 3, 2, 4);

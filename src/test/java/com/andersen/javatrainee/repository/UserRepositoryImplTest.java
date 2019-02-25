@@ -1,20 +1,16 @@
 package com.andersen.javatrainee.repository;
 
 import com.andersen.javatrainee.model.User;
+import com.andersen.javatrainee.testdata.TestHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.andersen.javatrainee.UserTestData.*;
+import static com.andersen.javatrainee.testdata.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringJUnitConfig(locations = {"classpath:spring/db.xml", "classpath:spring/security.xml"})
-@Transactional
-class UserRepositoryImplTest {
+class UserRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     UserRepositoryImpl repo;
@@ -38,11 +34,11 @@ class UserRepositoryImplTest {
         repo.delete(3);
         List<User> allUsers = repo.getAll();
         assertEquals(3, allUsers.size());
-        assertMatch(allUsers, USER_JOE, USER_BOB, USER_ZOE);
+        TestHelper.assertMatch(allUsers, USER_JOE, USER_BOB, USER_ZOE);
     }
 
     @Test
-    @Rollback(false)
+//    @Rollback(false)
     void update() {
         User updatedUser = repo.save(UPDATED_USER_JOE);
         assertEquals(UPDATED_USER_JOE.getLogin(), updatedUser.getLogin());
@@ -54,6 +50,6 @@ class UserRepositoryImplTest {
     @Test
     void getAll() {
         List<User> allUsers = repo.getAll();
-        assertMatch(allUsers, USER_JOE, USER_BOB, USER_ANN, USER_ZOE);
+        TestHelper.assertMatch(allUsers, USER_JOE, USER_BOB, USER_ANN, USER_ZOE);
     }
 }

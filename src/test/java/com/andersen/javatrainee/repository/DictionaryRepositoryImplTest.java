@@ -2,20 +2,18 @@ package com.andersen.javatrainee.repository;
 
 import com.andersen.javatrainee.model.Dictionary;
 import com.andersen.javatrainee.model.Role;
+import com.andersen.javatrainee.testdata.TestHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.andersen.javatrainee.DictionaryTestData.*;
+import static com.andersen.javatrainee.testdata.DictionaryTestData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringJUnitConfig(locations = {"classpath:spring/db.xml", "classpath:spring/security.xml"})
-@Transactional
-class DictionaryRepositoryImplTest {
+
+class DictionaryRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     DictionaryRepositoryImpl repo;
@@ -50,12 +48,12 @@ class DictionaryRepositoryImplTest {
         repo.delete(1);
         List<Dictionary> allDictionaries = repo.getAll();
         assertEquals(1, allDictionaries.size());
-        assertMatch(allDictionaries, ROLE_ADMIN);
+        TestHelper.assertMatch(allDictionaries, ROLE_ADMIN);
     }
 
     @Test
     void getAll() {
         List<Dictionary> allDictionaries = repo.getAll();
-        assertMatch(allDictionaries, ROLE_USER, ROLE_ADMIN);
+        TestHelper.assertMatch(allDictionaries, ROLE_USER, ROLE_ADMIN);
     }
 }

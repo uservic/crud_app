@@ -3,11 +3,11 @@ package com.andersen.javatrainee.repository;
 import com.andersen.javatrainee.model.Dictionary;
 import com.andersen.javatrainee.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@org.springframework.stereotype.Repository
-
+@Repository
 public class DictionaryRepositoryImpl implements DictionaryRepository {
 
     private DataJpaDictionaryRepository dataJpaDictionaryRepository;

@@ -46,7 +46,7 @@ create table dt_seq_gen
 
 create table movies
 (
-  id serial not null
+  id serial
     constraint movies_pk
       primary key,
   title varchar(31) not null,
@@ -127,7 +127,8 @@ create table orders
       references price_categories,
   user_id integer
     constraint orders_user_id_fk
-      references users,
+      references users
+      on delete cascade,
   session_id integer not null
     constraint orders_session_id_fk
       references movie_sessions,

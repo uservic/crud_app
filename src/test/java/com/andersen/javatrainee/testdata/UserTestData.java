@@ -1,11 +1,7 @@
-package com.andersen.javatrainee;
+package com.andersen.javatrainee.testdata;
 
 import com.andersen.javatrainee.model.Role;
 import com.andersen.javatrainee.model.User;
-
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 public class UserTestData {
 
@@ -30,11 +26,4 @@ public class UserTestData {
             new User(1,"Joe_Updated", "00000",
                     new Role(1,"USER", 1));
 
-    public static void assertMatch(Iterable<User> actual, User... expected) {
-        assertMatch(actual, Arrays.asList(expected));
-    }
-
-    public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
-        assertIterableEquals(actual, expected);
-    }
 }

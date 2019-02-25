@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public User save(User user) throws DuplicateFoundException {
         ValidationUtil.checkDuplicateLoginId(
                 repository.getByLogin(user.getLogin()), user.getLogin(), user.getId());
@@ -40,6 +42,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         repository.delete(id);
     }

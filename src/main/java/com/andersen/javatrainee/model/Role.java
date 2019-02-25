@@ -9,9 +9,6 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "Role")
 public class Role extends Dictionary implements GrantedAuthority {
 
-    public static final String ROLE_USER = "user";
-    public static final String ROLE_ADMIN = "admin";
-
 //    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
 //    private Set<User> users;
 
