@@ -42,8 +42,6 @@ create table dt_seq_gen
 	counter int not null
 );
 
-/*Preliminary MovieTheatreTables initialization*/
-
 create table movies
 (
   id serial

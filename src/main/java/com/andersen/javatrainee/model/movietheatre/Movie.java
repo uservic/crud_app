@@ -1,24 +1,23 @@
 package com.andersen.javatrainee.model.movietheatre;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "movies")
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Movie {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Movie extends AbstractEntity {
 
     @Column(name = "title")
     @NotBlank(message = "Movie title must not be blank")
@@ -36,20 +35,15 @@ public class Movie {
 
     //Copy-constructor
     public Movie(Movie movie) {
-        this(movie.getId(), movie.getTitle(), movie.getDescription());
+        super(movie.getId());
+        this.title = movie.getTitle();
+        this.description = movie.getDescription();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || !getClass().equals(Hibernate.getClass(o))) return false;
-        Movie movie = (Movie) o;
-        return id != null && id.equals(movie.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id == null ? 0 : id;
+    public Movie(Integer id, String title, String description) {
+        super(id);
+        this.title = title;
+        this.description = description;
     }
 
 }

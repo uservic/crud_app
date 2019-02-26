@@ -8,6 +8,7 @@ delete from movies;
 delete from dictionary;
 delete from users;
 delete from dt_seq_gen;
+
 ALTER SEQUENCE dictionary_id_seq RESTART WITH 1;
 ALTER SEQUENCE users_id_seq RESTART WITH 1;
 ALTER SEQUENCE movies_id_seq RESTART WITH 1;
