@@ -97,6 +97,7 @@ create table movie_sessions
   hall_id integer
     constraint movie_sessions_hall_id_fk
       references hall
+      on delete cascade
 );
 
 alter table movie_sessions owner to postgres;
@@ -122,14 +123,16 @@ create table orders
       primary key,
   price_cat_id integer not null
     constraint orders_price_cat_id_fk
-      references price_categories,
+      references price_categories
+      on delete cascade,
   user_id integer
     constraint orders_user_id_fk
       references users
       on delete cascade,
   session_id integer not null
     constraint orders_session_id_fk
-      references movie_sessions,
+      references movie_sessions
+      on delete cascade,
   seat_id integer not null
     constraint orders_seat_id_fk
       references seats
