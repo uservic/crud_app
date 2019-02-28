@@ -135,7 +135,9 @@ create table orders
       on delete cascade,
   seat_id integer not null
     constraint orders_seat_id_fk
-      references seats
+      references seats,
+  constraint session_id_seat_id_constr
+    unique (session_id, seat_id)
 );
 
 alter table orders owner to postgres;

@@ -10,6 +10,8 @@ public class HallSeatsTestData {
 
     public static final Hall TWO_ON_TWO_HALL =
             new Hall("Tiny Hall", 2,2);
+    public static final Seat SEAT_ROWONE_NUMONE=
+            new Seat(1,1,1, TWO_ON_TWO_HALL);
 
     public static List<Seat> makeSeats(Hall hall) {
         int rows = hall.getRowsQuantity();
